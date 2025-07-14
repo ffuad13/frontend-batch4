@@ -4,7 +4,7 @@ export default function TodoItem({ todo, toggleDone }) {
       onClick={() => toggleDone(todo.id)}
       className={`px-4 py-2 rounded cursor-pointer ${
         todo.done
-          ? 'bg-green-100 text-gray-500 line-through'
+          ? 'bg-green-400 text-gray-500 line-through'
           : 'bg-white border border-gray-300 hover:bg-gray-50'
       }`}
     >

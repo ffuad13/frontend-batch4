@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
-import TodoInput from './components/TodoInput'
-import TodoList from './components/TodoList'
+import { useState, useEffect } from 'react'
+import TodoInput from '@/components/todoComponents/TodoInput'
+import TodoList from '@/components/todoComponents/todoList'
 
 export default function Home() {
   // const todos = [
@@ -13,6 +13,19 @@ export default function Home() {
   // ]
   const [todos, setTodos] = useState([])
   const [input, setInput] = useState("")
+
+  //sama seperti componentDidMount
+  useEffect(() => {
+    console.log("Component is mounted")
+    const savedData = localStorage.getItem("todos")
+    if (savedData) setTodos(JSON.parse(savedData))
+  }, [])
+
+  //sama seperti componentDidUpdate
+  useEffect(() => {
+    console.log("Todos is updated")
+    localStorage.setItem("todos", JSON.stringify(todos))
+  }, [todos])
 
   const addTodo = () => {
     if (!input.trim()) return

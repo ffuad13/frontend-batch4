@@ -1,4 +1,4 @@
-import TodoItem from './TodoItem'
+import TodoItem from '@/components/todoComponents/todoItem'
 
 export default function TodoList({ todos, toggleDone }) {
   return (
