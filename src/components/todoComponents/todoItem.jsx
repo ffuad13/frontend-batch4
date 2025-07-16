@@ -1,4 +1,4 @@
-export default function TodoItem({ todo, toggleDone, deleteTodo }) {
+export default function TodoItem({ todo, toggleDone, deleteTodo, index }) {
   return (
     <div className="flex items-center justify-between bg-white rounded p-3 shadow-sm">
       <span
@@ -7,7 +7,7 @@ export default function TodoItem({ todo, toggleDone, deleteTodo }) {
           todo.done ? "bg-green-400 text-gray-500 line-through" : "bg-white hover:bg-gray-50"
         }`}
       >
-        {todo.text}
+        {`${index}. ${todo.text}`}
       </span>
       <button onClick={() => deleteTodo(todo.id)} className="ml-3 text-red-400 hover:text-red-700 font-bold">
         &times;
