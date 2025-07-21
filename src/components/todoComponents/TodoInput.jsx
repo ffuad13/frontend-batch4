@@ -1,4 +1,10 @@
-export default function TodoInput({ input, setInput, addTodo }) {
+"use client"
+
+import {useTodos} from '@/context/todoContext'
+
+export default function TodoInput() {
+  const {input, setInput, addTodo} = useTodos()
+
   const hadleChange = (e) => {
     console.log('Chnage', e.target.value)
     setInput(e.target.value)

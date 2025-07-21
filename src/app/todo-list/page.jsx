@@ -1,63 +1,30 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import {TodoProvider} from '@/context/todoContext'
 import TodoInput from "@/components/todoComponents/TodoInput";
 import TodoList from "@/components/todoComponents/todoList";
 
 export default function Home() {
-  // const todos = [
-  // 	{id: 1, text: "memasak", done: false},
-  // 	{id: 2, text: "memasak", done: false},
-  // 	{id: 3, text: "memasak", done: false},
-  // 	{id: 4, text: "memasak", done: false}
-  // ]
-  const [todos, setTodos] = useState([]);
-  const [input, setInput] = useState("");
+  // const hasTodos = todos.length > 0;
+  // const isLanguageIndonesian = false
 
-  //sama seperti componentDidMount
-  useEffect(() => {
-    console.log("Component is mounted");
-    const savedData = localStorage.getItem("todos");
-    if (savedData) setTodos(JSON.parse(savedData));
-  }, []);
+  // let list
+  // if (!hasTodos) {
+  //   list =  <p className="text-center text-gray-500">Task is empty. Please create a task</p>;
+  // } else {
+  //   list =  <TodoList todos={todos} toggleDone={toggleDone} deleteTodo={deleteTodo} />;
+  // }
 
-  //sama seperti componentDidUpdate
-  useEffect(() => {
-    console.log("Todos is updated");
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
-
-  const addTodo = () => {
-    if (!input.trim()) return;
-    setTodos([...todos, { id: Date.now(), text: input, done: false }]);
-    setInput("");
-  };
-
-  const toggleDone = (id) => {
-    setTodos(todos.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo)));
-  };
-
-  const hasTodos = todos.length > 0;
-  const isLanguageIndonesian = false
-
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
-  let list
-  if (!hasTodos) {
-    list =  <p className="text-center text-gray-500">Task is empty. Please create a task</p>;
-  } else {
-    list =  <TodoList todos={todos} toggleDone={toggleDone} deleteTodo={deleteTodo} />;
-  }
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-6 bg-gray-100">
-      <div className="w-full max-w-md space-y-4">
-        <h1 className="text-2xl font-bold text-center">My Todo List</h1>
-        <TodoInput input={input} setInput={setInput} addTodo={addTodo} />
+    <TodoProvider>
+      <main className="flex min-h-screen flex-col items-center justify-center p-6 bg-gray-100">
+        <div className="w-full max-w-md space-y-4">
+          <h1 className="text-2xl font-bold text-center">My Todo List</h1>
+          <TodoInput />
+          <TodoList />
 
-        {/* 1. if-else */}
-        {/* {(() => {
+          {/* 1. if-else */}
+          {/* {(() => {
           if (!hasTodos) {
             return <p className="text-center text-gray-500">Task is empty. Please create a task</p>;
           } else {
@@ -65,21 +32,22 @@ export default function Home() {
           }
         })()} */}
 
-        {/* 2. Ternary operator */}
-        {hasTodos ? (
-          <TodoList todos={todos} toggleDone={toggleDone} deleteTodo={deleteTodo} />
-        ) : isLanguageIndonesian ? (
-          <p className="text-center text-gray-500">Task kosong, silahkan buat Task baru.</p>
-        ) : (
-          <p className="text-center text-gray-500">Task is empty. Please create a task</p>
-        )}
+          {/* 2. Ternary operator */}
+          {/* {hasTodos ? (
+            <TodoList />
+          ) : isLanguageIndonesian ? (
+            <p className="text-center text-gray-500">Task kosong, silahkan buat Task baru.</p>
+          ) : (
+            <p className="text-center text-gray-500">Task is empty. Please create a task</p>
+          )} */}
 
-        {/* 3. Logical AND (&&) */}
-        {/* {hasTodos && <TodoList todos={todos} toggleDone={toggleDone} deleteTodo={deleteTodo} />}
+          {/* 3. Logical AND (&&) */}
+          {/* {hasTodos && <TodoList todos={todos} toggleDone={toggleDone} deleteTodo={deleteTodo} />}
         {!hasTodos && <p className="text-center text-gray-500">Task is empty. Please create a task</p>} */}
 
-        {/* {list} */}
-      </div>
-    </main>
+          {/* {list} */}
+        </div>
+      </main>
+    </TodoProvider>
   );
 }
